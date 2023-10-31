@@ -5,19 +5,19 @@ import DropdownMenu from '@/Components/DropdownMenu';
 import ResponsiveNavigation from '@/Layouts/ResponsiveNavigation';
 
 export default function Navigation() {
-    const {auth} = usePage().props
+    const {auth, category_global} = usePage().props
 
     return (
         <>
             <ResponsiveNavigation />
-            <nav className="hidden border-b border-dashed border-gray-700 bg-gray-800 py-4 shadow lg:block">
+            <nav className="hidden fixed w-screen border-b border-dashed border-gray-700 bg-gray-800 py-4 shadow lg:block">
                 <div className="mx-auto max-w-screen-2xl px-4">
                     <div className="flex items-center justify-between">
                         <Link
                             href={route('home')}
                             className="mr-3 text-lg font-semibold capitalize text-white"
                         >
-                            Inertia
+                            {import.meta.env.VITE_APP_NAME}
                         </Link>
 
                         <div className="flex flex-1 items-center justify-between">
@@ -28,14 +28,19 @@ export default function Navigation() {
                                 >
                                     Home
                                 </NavLink>
-                                <NavLink href={'#'}>Blog</NavLink>
-                                <NavLink href={'#'}>Tutorials</NavLink>
-                                <NavLink href={'#'}>Packages</NavLink>
+                                {category_global.map((category) => (
+                                    <NavLink
+                                        href={route('category.show', category.slug)}
+                                        key={category.slug}
+                                        active={route().current('category.show', category.slug)}>
+                                        {category.name}
+                                    </NavLink>
+                                ))}
                             </div>
                             <div className="flex items-center">
                                 {auth.user ? (
                                     <div className="flex items-center">
-                                    <DropdownMenu label="Irsyad A. Panjaitan">
+                                    <DropdownMenu label={auth.user.name}>
                                         <DropdownMenu.Link
                                             href={route('dashboard')}
                                         >
@@ -47,15 +52,14 @@ export default function Navigation() {
                                         <DropdownMenu.Link href={'#'}>
                                             Settings
                                         </DropdownMenu.Link>
-                                        <DropdownMenu.Link href={'#'}>
-                                            New article
-                                        </DropdownMenu.Link>
+                                        <DropdownMenu.Divider/>
                                         <DropdownMenu.Link href={'#'}>
                                             My articles
                                         </DropdownMenu.Link>
                                         <DropdownMenu.Link href={'#'}>
                                             New article
                                         </DropdownMenu.Link>
+                                        <DropdownMenu.Divider/>
                                         <DropdownMenu.Link
                                             href={route('logout')}
                                             method="POST"

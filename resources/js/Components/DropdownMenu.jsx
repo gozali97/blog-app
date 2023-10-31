@@ -59,7 +59,7 @@ function Link({ isActive = false, children, ...props }) {
                 <InertiaLink className="block w-full text-left" {...props}>
                     <div
                         className={clsx(
-                            (active || isActive) ? 'bg-blue-700 text-white' : 'text-gray-400',
+                            (active || isActive) ? 'bg-blue-700 text-white w-full' : 'text-gray-400',
                             'inline-block rounded-lg px-2 py-1 text-left text-sm font-medium'
                         )}
                     >
@@ -71,5 +71,10 @@ function Link({ isActive = false, children, ...props }) {
     );
 }
 
+function Divider(){
+    return <div className="w-full my-2 bg-gradient-to-r from-gray-700 via-transparent to-transparent h-px ml-2"/>
+}
+
 DropdownMenu.Link = Link;
+DropdownMenu.Divider = Divider;
 export default DropdownMenu;

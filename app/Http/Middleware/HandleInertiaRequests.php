@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -30,11 +31,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+//        cache()->forget('category_global');
+        $categoryGlobal = Category::query()
+            ->whereHas('articles')
+        ->select('name', 'slug')->get();
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
+            'category_global' => cache()->rememberForever('category_global', fn () => $categoryGlobal),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

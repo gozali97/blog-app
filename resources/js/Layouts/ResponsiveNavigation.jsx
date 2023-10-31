@@ -1,10 +1,12 @@
-import { Link } from '@inertiajs/react';
+import {Link, usePage} from '@inertiajs/react';
 import React from 'react';
 import DropdownMenu from '../Components/DropdownMenu.jsx';
 
 export default function ResponsiveNavigation() {
+
+    const {auth} = usePage().props;
     return (
-        <nav className="border-b border-gray-800 bg-black px-4 py-4 lg:hidden">
+        <nav className="border-b border-gray-800 fixed w-full mb-4 bg-black px-4 py-4 lg:hidden">
             <div className="flex items-center justify-between">
                 <Link className="text-xl font-semibold text-white" href="/">
                     {import.meta.env.VITE_APP_NAME}
@@ -32,27 +34,42 @@ export default function ResponsiveNavigation() {
                     <DropdownMenu.Link href={'/articles'}>
                         Articles
                     </DropdownMenu.Link>
-                    <DropdownMenu.Link href={route('dashboard')}>
-                        Dashboard
-                    </DropdownMenu.Link>
-                    <DropdownMenu.Link href={'#'}>My profile</DropdownMenu.Link>
-                    <DropdownMenu.Link href={'#'}>Settings</DropdownMenu.Link>
-                    <DropdownMenu.Link href={'#'}>
-                        New article
-                    </DropdownMenu.Link>
-                    <DropdownMenu.Link href={'#'}>
-                        My articles
-                    </DropdownMenu.Link>
-                    <DropdownMenu.Link href={'#'}>
-                        New article
-                    </DropdownMenu.Link>
-                    <DropdownMenu.Link
-                        href={route('logout')}
-                        method="POST"
-                        as="button"
-                    >
-                        Logout
-                    </DropdownMenu.Link>
+                    {auth.user ? <>
+                        <DropdownMenu.Link href={route('dashboard')}>
+                            Dashboard
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Link href={'#'}>
+                            My profile
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Link href={'#'}>
+                            Settings
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Divider/>
+                        <DropdownMenu.Link href={'#'}>
+                            My articles
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Link href={'#'}>
+                            New article
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Divider/>
+                        <DropdownMenu.Link
+                            href={route('logout')}
+                            method="POST"
+                            as="button"
+                        >
+                            Logout
+                        </DropdownMenu.Link>
+                    </>:
+                    <>
+                        <DropdownMenu.Link href={route('login')}>
+                            Login
+                        </DropdownMenu.Link>
+                        <DropdownMenu.Link href={route('register')}>
+                            Register
+                        </DropdownMenu.Link>
+                    </>
+                    }
+
                 </DropdownMenu>
             </div>
         </nav>
