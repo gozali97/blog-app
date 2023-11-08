@@ -7,20 +7,17 @@ import Grid from "@/Components/Grid.jsx";
 import ArticleBlock from "@/Components/ArticleBlock.jsx";
 import Pagination from "@/Components/Pagination.jsx";
 
-export default function Show({category, ...props}){
+export default function Index({category, ...props}){
     const {data: articles, meta, links} = props.articles;
     return(
         <div className="mt-14 md:mt-10">
-            <Head title={category.name}/>
+            <Head title="The Article"/>
             <Header>
                 <Header.Title>
-                    {category.name}
+                    The Article
                 </Header.Title>
-                <Header.Subtitle>
-                    This page {category.slug}
-                </Header.Subtitle>
                 <Header.Content>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, exercitationem!
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </Header.Content>
             </Header>
             <Container>
@@ -41,4 +38,4 @@ export default function Show({category, ...props}){
     )
 }
 
-Show.layout = page => <App children={page}/>
+Index.layout = page => <App children={page}/>
