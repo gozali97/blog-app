@@ -10,6 +10,7 @@
         "@inertiajs/react": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/line-clamp": "^0.4.4",
+        "@tailwindcss/typography": "^0.5.10",
         "@vitejs/plugin-react": "^4.0.3",
         "autoprefixer": "^10.4.12",
         "axios": "^1.1.2",
@@ -24,6 +25,7 @@
         "@inertiajs/inertia-react": "^0.8.1",
         "clsx": "^2.0.0",
         "highlight.js": "^11.9.0",
-        "marked": "^9.1.5"
+        "marked": "^9.1.5",
+        "postcss-import": "^15.1.0"
     }
 }
