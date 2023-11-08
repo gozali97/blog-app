@@ -16,6 +16,7 @@ class HomeController extends Controller
         $article = Article::query()
             ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
             ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
+            ->latest()
             ->limit(12)
             ->get();
 
