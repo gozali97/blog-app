@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleSingleResource extends JsonResource
 {
@@ -14,6 +15,22 @@ class ArticleSingleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'teaser' => $this->teaser,
+            'body' => $this->body,
+            'author' => $this->author->name,
+            'image' => $this->image ? Storage::url($this->image) : null,
+            'category' => [
+                'name' => $this->category->name,
+                'slug' => $this->category->slug,
+            ],
+            'tags' => $this->tags->map(fn ($tag) =>[
+                'name' => $tag->name,
+                'slug' => $tag->slug,
+            ]),
+
+        ];
     }
 }

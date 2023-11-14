@@ -56,7 +56,7 @@ export default function Navigation() {
                                         <DropdownMenu.Link href={'#'}>
                                             My articles
                                         </DropdownMenu.Link>
-                                        <DropdownMenu.Link href={'#'}>
+                                        <DropdownMenu.Link href={route('articles.create')}>
                                             New article
                                         </DropdownMenu.Link>
                                         <DropdownMenu.Divider/>
