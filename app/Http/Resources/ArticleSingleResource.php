@@ -21,7 +21,7 @@ class ArticleSingleResource extends JsonResource
             'teaser' => $this->teaser,
             'body' => $this->body,
             'author' => $this->author->name,
-            'image' => $this->image ? Storage::url($this->image) : null,
+            'image' => $this->image ? Storage::url($this->image) : 'https://flowbite.com/docs/images/examples/image-1@2x.jpg',
             'category' => [
                 'name' => $this->category->name,
                 'slug' => $this->category->slug,

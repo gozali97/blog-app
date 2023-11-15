@@ -10,7 +10,7 @@ export default function Navigation() {
     return (
         <>
             <ResponsiveNavigation />
-            <nav className="hidden fixed w-screen border-b border-dashed border-gray-700 bg-gray-800 py-4 shadow lg:block">
+            <nav className="hidden fixed z-50 w-screen border-b border-dashed border-gray-700 bg-gray-800 py-4 shadow lg:block">
                 <div className="mx-auto max-w-screen-2xl px-4">
                     <div className="flex items-center justify-between">
                         <Link

@@ -18,9 +18,8 @@ class ArticleController extends Controller
         $this->middleware('auth')->except('show', 'index');
         $this->tags = Tag::select('id','name')->get();
         $this->categories = Category::select('id','name')->get();
-
-
     }
+
     public function index(){
         $article = Article::query()
             ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
@@ -36,9 +35,23 @@ class ArticleController extends Controller
 
     public function show(Article $article){
 
-        return new ArticleSingleResource($article);
+//        return new ArticleSingleResource($article);
+        $articles = Article::query()
+            ->select('id', 'title', 'slug')
+            ->whereNot('id', $article->id)
+            ->with('category')
+            ->limit(10)
+            ->get();
+
+        $currentArticle = $article->load([
+            'tags' => fn($query) => $query->select('name', 'slug'),
+            'category' => fn($query) => $query->select('id','name', 'slug'),
+        ]);
+
         return inertia('Articles/Show',[
-            'article' => new ArticleSingleResource($article),
+            'article' => (new ArticleSingleResource($currentArticle))->additional([
+                'related' => $articles,
+            ]),
         ]);
     }
 
@@ -51,6 +64,15 @@ class ArticleController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
+            'title' => ['required', 'string', 'min:3'],
+            'teaser' => ['required', 'string', 'min:3'],
+            'body' => ['required', 'string', 'min:3'],
+            'category_id' => ['required', 'exists:categories, id'],
+            'tags' => ['required', 'array'],
+        ]);
+
         $picture = $request->file('picture');
 
         $article =   $request->user()->articles()->create([

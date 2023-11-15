@@ -12,9 +12,11 @@ class CategoryController extends Controller
     public function show(Category $category){
 
         $article = Article::query()
-            ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
+            ->orWhereBelongsTo($category)
+            ->select('id','title', 'image','slug','user_id', 'teaser', 'created_at')
             ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
             ->limit(12)
+            ->latest()
             ->fastPaginate();
 
          return inertia('Category/Show', [

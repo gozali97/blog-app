@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         $article = Article::query()
-            ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
+            ->select('id','title', 'image', 'slug','user_id', 'teaser', 'created_at')
             ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
             ->latest()
             ->limit(12)

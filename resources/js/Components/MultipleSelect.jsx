@@ -17,7 +17,7 @@ export default function MultipleSelect({ data, selectedItem, onChange }) {
     return (
         <Listbox
             as="div"
-            className="relative rounded-xl"
+            className="relative z-0 rounded-xl"
             value={selectedItem}
             onChange={onChange}
             multiple
