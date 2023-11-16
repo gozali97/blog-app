@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ArticleItemResource;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,6 +13,14 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return inertia('Dashboard');
+        $article = Article::query()
+            ->select('id','title', 'image', 'slug','user_id', 'teaser', 'created_at')
+            ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
+            ->latest()
+            ->limit(12)
+            ->get();
+        return inertia('Dashboard', [
+            'articles' => ArticleItemResource::collection($article),
+        ]);
     }
 }

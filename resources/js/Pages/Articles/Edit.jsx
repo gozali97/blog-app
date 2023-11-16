@@ -15,21 +15,23 @@ import {Inertia} from "@inertiajs/inertia";
 import Error from "@/Components/Error.jsx";
 import ArticleForm from "@/Components/ArticleForm.jsx";
 
-export default function Create({tags}){
+export default function Edit({article, tags}){
+
     const {data, setData} = useForm({
-        title: '',
-        teaser: '',
-        category_id: '',
-        body: '',
+        title: article.title,
+        teaser: article.teaser,
+        category_id: article.category,
+        body: article.body,
         picture: '',
-        tags: [tags[0], tags[1]],
+        tags: article.tags,
     })
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        Inertia.post(route('articles.store'), {
+        Inertia.put(route('articles.update', article.slug), {
             ...data,
+            _method: "PUT",
             category_id: data.category_id.id,
             tags: data.tags.map(t => t.id),
 
@@ -37,7 +39,7 @@ export default function Create({tags}){
     }
     return(
         <div className="mt-14 md:mt-10">
-            <Head title="Create new article"/>
+            <Head title="Edit new article"/>
             <Header>
                 <Header.Title>
                     {data.title || 'The title ..'}
@@ -47,13 +49,13 @@ export default function Create({tags}){
                 </Header.Content>
             </Header>
             <Container>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} enctype="multipart/form-data">
                     <ArticleForm {...{data, setData}}/>
-                    <PrimaryButton type='submit'>Submit</PrimaryButton>
+                    <PrimaryButton>Update</PrimaryButton>
                 </form>
             </Container>
         </div>
     )
 }
 
-Create.layout = page => <App children={page}/>
+Edit.layout = page => <App children={page}/>

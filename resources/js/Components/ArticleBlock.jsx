@@ -6,7 +6,7 @@ export default function ArticleBlock({article}) {
         <div className="border shadow-sm rounded-lg overflow-hidden">
             <div className='h-48 max-h-48 mb-2'>
                 <Link href={route('articles.show', article.slug)}>
-                    {<img className='h-48 w-full' src={article.image} alt=""/>}
+                    {<img className='h-48 w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300' src={article.image} alt=""/>}
                 </Link>
             </div>
 

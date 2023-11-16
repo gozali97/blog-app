@@ -9,9 +9,12 @@ export default function Select({ data, value, onChange, placeholder = 'Select on
 
     const handleSearch = (value) => {
         setSearchValue(value);
-        const filtered = data.filter((item) =>
-            item.name.toLowerCase().includes(value.toLowerCase())
-        );
+        let filtered = data;
+        if (typeof value === 'string' && value.trim() !== '') {
+            filtered = data.filter((item) =>
+                item.name.toLowerCase().includes(value.toLowerCase())
+            );
+        }
         setFilteredData(filtered);
     };
     return (

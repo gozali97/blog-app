@@ -24,7 +24,7 @@ function Title({ children }) {
 }
 function Subtitle({ children }) {
     return (
-        <h4 className="mt-1 text-xl mt-2 font-medium text-gray-300 lg:text-xl">
+        <h4 className="mt-6 text-xl text-gray-300 lg:text-2xl leading-relaxed">
             {children}
         </h4>
     );

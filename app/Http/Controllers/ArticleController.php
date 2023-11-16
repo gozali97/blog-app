@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ArticleItemResource;
 use App\Http\Resources\ArticleSingleResource;
+use App\Http\Resources\ArticleTableResource;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
@@ -32,6 +33,25 @@ class ArticleController extends Controller
             'articles' => ArticleItemResource::collection($article),
         ]);
     }
+
+    public function table(Request $request){
+
+        $articles = Article::query()
+            ->with([
+                'author',
+                'tags'=> fn($query) => $query->select('name', 'slug', 'id'),
+                'category'=> fn($query) => $query->select('name', 'slug', 'id')
+            ])
+            ->whereBelongsTo($request->user(), 'author')
+            ->latest()
+            ->fastPaginate(5);
+//    return ArticleTableResource::collection($articles);
+
+        return inertia('Articles/Table',[
+            'articles' => ArticleTableResource::collection($articles),
+        ]);
+    }
+
 
     public function show(Article $article){
 
@@ -69,7 +89,7 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'min:3'],
             'teaser' => ['required', 'string', 'min:3'],
             'body' => ['required', 'string', 'min:3'],
-            'category_id' => ['required', 'exists:categories, id'],
+            'category_id' => ['required'],
             'tags' => ['required', 'array'],
         ]);
 
@@ -86,5 +106,45 @@ class ArticleController extends Controller
         $article->tags()->attach($request->tags);
 
       return to_route('articles.show', $article);
+    }
+
+    public function edit(Article $article){
+
+        return inertia('Articles/Edit',[
+            'article' => $article->load([
+                'tags' => fn ($query) => $query->select('id', 'name'),
+                'category' => fn ($query) => $query->select('id', 'name'),
+            ]),
+            'tags' => $this->tags,
+            'categories' => $this->categories,
+        ]);
+    }
+
+    public function update(Request $request, Article $article){
+
+        $request->validate([
+            'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
+            'title' => ['required', 'string', 'min:3'],
+            'teaser' => ['required', 'string', 'min:3'],
+            'body' => ['required', 'string', 'min:3'],
+            'category_id' => ['required'],
+            'tags' => ['required', 'array'],
+        ]);
+
+        if ($request->hasFile('picture')) {
+            $picture = $request->file('picture');
+        }
+
+
+        $article->update([
+            'title' => $request->title,
+            'teaser' => $request->teaser,
+            'category_id' => $request->category_id,
+            'body' => $request->body,
+            'image' => $request->hasFile('picture') ? $picture->storeAs('images/articles', $article->slug .'.'.$picture->extension()) : $article->image,
+        ]);
+        $article->tags()->sync($request->tags, true);
+
+        return to_route('articles.show', $article);
     }
 }

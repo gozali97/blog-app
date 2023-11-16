@@ -7,5 +7,6 @@ Route::get('tags/{tag:slug}', [\App\Http\Controllers\TagController::class, 'show
 Route::get('category/{category:slug}', [\App\Http\Controllers\CategoryController::class, 'show'])->name('category.show');
 Route::get('dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard')->middleware('auth');
 
+Route::get('articles/table', [\App\Http\Controllers\ArticleController::class, 'table'])->name('article.table');
 Route::resource('articles', \App\Http\Controllers\ArticleController::class);
 require __DIR__.'/auth.php';
