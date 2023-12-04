@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { InertiaLink } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/react';
 
 function DropdownMenu({ toggleAnimate = true, label, children }) {
     return (
@@ -52,11 +52,11 @@ function DropdownMenu({ toggleAnimate = true, label, children }) {
     );
 }
 
-function Link({ isActive = false, children, ...props }) {
+function Dwlink({ isActive = false, children, ...props }) {
     return (
         <Menu.Item>
             {({ active }) => (
-                <InertiaLink className="block w-full text-left" {...props}>
+                <Link className="block w-full text-left" {...props}>
                     <div
                         className={clsx(
                             (active || isActive) ? 'bg-blue-700 text-white w-full' : 'text-gray-400',
@@ -65,7 +65,7 @@ function Link({ isActive = false, children, ...props }) {
                     >
                         {children}
                     </div>
-                </InertiaLink>
+                </Link>
             )}
         </Menu.Item>
     );
@@ -75,6 +75,6 @@ function Divider(){
     return <div className="w-full my-2 bg-gradient-to-r from-gray-700 via-transparent to-transparent h-px ml-2"/>
 }
 
-DropdownMenu.Link = Link;
+DropdownMenu.Dwlink = Dwlink;
 DropdownMenu.Divider = Divider;
 export default DropdownMenu;

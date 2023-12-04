@@ -30,43 +30,43 @@ export default function ResponsiveNavigation() {
                         </svg>
                     }
                 >
-                    <DropdownMenu.Link href={'/'}>Home</DropdownMenu.Link>
-                    <DropdownMenu.Link href={'/articles'}>
+                    <DropdownMenu.Dwlink href={'/'}>Home</DropdownMenu.Dwlink>
+                    <DropdownMenu.Dwlink href={'/articles'}>
                         Articles
-                    </DropdownMenu.Link>
+                    </DropdownMenu.Dwlink>
                     {auth.user ? <>
-                        <DropdownMenu.Link href={route('dashboard')}>
+                        <DropdownMenu.Dwlink href={route('dashboard')}>
                             Dashboard
-                        </DropdownMenu.Link>
-                        <DropdownMenu.Link href={'#'}>
+                        </DropdownMenu.Dwlink>
+                        <DropdownMenu.Dwlink href={'#'}>
                             My profile
-                        </DropdownMenu.Link>
-                        <DropdownMenu.Link href={'#'}>
+                        </DropdownMenu.Dwlink>
+                        <DropdownMenu.Dwlink href={'#'}>
                             Settings
-                        </DropdownMenu.Link>
+                        </DropdownMenu.Dwlink>
                         <DropdownMenu.Divider/>
-                        <DropdownMenu.Link href={'#'}>
+                        <DropdownMenu.Dwlink href={'#'}>
                             My articles
-                        </DropdownMenu.Link>
-                        <DropdownMenu.Link href={'#'}>
+                        </DropdownMenu.Dwlink>
+                        <DropdownMenu.Dwlink href={'#'}>
                             New article
-                        </DropdownMenu.Link>
+                        </DropdownMenu.Dwlink>
                         <DropdownMenu.Divider/>
-                        <DropdownMenu.Link
+                        <DropdownMenu.Dwlink
                             href={route('logout')}
                             method="POST"
                             as="button"
                         >
                             Logout
-                        </DropdownMenu.Link>
+                        </DropdownMenu.Dwlink>
                     </>:
                     <>
-                        <DropdownMenu.Link href={route('login')}>
+                        <DropdownMenu.Dwlink href={route('login')}>
                             Login
-                        </DropdownMenu.Link>
-                        <DropdownMenu.Link href={route('register')}>
+                        </DropdownMenu.Dwlink>
+                        <DropdownMenu.Dwlink href={route('register')}>
                             Register
-                        </DropdownMenu.Link>
+                        </DropdownMenu.Dwlink>
                     </>
                     }
 

@@ -24,6 +24,7 @@ export default function Create({statuses,tags}){
         Inertia.post(route('articles.store'), {
             ...data,
             category_id: data.category_id.id,
+            status: data.status.id,
             tags: data.tags.map(t => t.id),
 
         })

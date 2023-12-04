@@ -35,6 +35,7 @@ class ArticleController extends Controller
         $article = Article::query()
             ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
             ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
+            ->wherePublished()
             ->latest()
             ->limit(12)
             ->fastPaginate();
@@ -101,6 +102,7 @@ class ArticleController extends Controller
             'teaser' => ['required', 'string', 'min:3'],
             'body' => ['required', 'string', 'min:3'],
             'category_id' => ['required'],
+            'status' => ['required', 'numeric'],
             'tags' => ['required', 'array'],
         ]);
 
@@ -111,6 +113,7 @@ class ArticleController extends Controller
                         'slug' => $slug = str($title)->slug(),
                         'teaser' => $request->teaser,
                         'category_id' => $request->category_id,
+                        'status' => $request->status,
                         'body' => $request->body,
                         'image' => $request->hasFile('picture') ? $picture->storeAs('images/articles', $slug .'.'.$picture->extension()) : null,
                     ]);
@@ -133,13 +136,14 @@ class ArticleController extends Controller
     }
 
     public function update(Request $request, Article $article){
-dd($request->all());
+
         $request->validate([
             'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
             'teaser' => ['required', 'string', 'min:3'],
             'body' => ['required', 'string', 'min:3'],
             'category_id' => ['required'],
+            'status' => ['required', 'numeric'],
             'tags' => ['required', 'array'],
         ]);
 
@@ -153,6 +157,7 @@ dd($request->all());
             'teaser' => $request->teaser,
             'category_id' => $request->category_id,
             'body' => $request->body,
+            'status' => $request->status,
             'image' => $request->hasFile('picture') ? $picture->storeAs('images/articles', $article->slug .'.'.$picture->extension()) : $article->image,
         ]);
         $article->tags()->sync($request->tags, true);

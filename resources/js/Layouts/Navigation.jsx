@@ -43,6 +43,12 @@ export default function Navigation() {
                                 >
                                     Home
                                 </NavLink>
+                                <NavLink
+                                    href={route('articles.index')}
+                                    active={route().current('articles.index')}
+                                >
+                                    Article
+                                </NavLink>
                                 {category_global.map((category) => (
                                     <NavLink
                                         href={route('category.show', category.slug)}
@@ -63,34 +69,34 @@ export default function Navigation() {
                                 {auth.user ? (
                                     <div className="flex items-center">
                                     <DropdownMenu label={auth.user.name}>
-                                        <DropdownMenu.Link
+                                        <DropdownMenu.Dwlink
                                             href={route('dashboard')}
                                         >
                                             Dashboard
-                                        </DropdownMenu.Link>
-                                        <DropdownMenu.Link href='/profile'>
+                                        </DropdownMenu.Dwlink>
+                                        <DropdownMenu.Dwlink href='/profile'>
                                             My profile
-                                        </DropdownMenu.Link>
-                                        <DropdownMenu.Link href={'#'}>
+                                        </DropdownMenu.Dwlink>
+                                        <DropdownMenu.Dwlink href={'#'}>
                                             Settings
-                                        </DropdownMenu.Link>
+                                        </DropdownMenu.Dwlink>
                                         <DropdownMenu.Divider/>
-                                        {auth.hasRole ? <>
-                                        <DropdownMenu.Link href={route('article.table')}>
+                                        {auth.user.hasRole ? <>
+                                        <DropdownMenu.Dwlink href={route('article.table')}>
                                             My articles
-                                        </DropdownMenu.Link>
-                                        <DropdownMenu.Link href={route('articles.create')}>
+                                        </DropdownMenu.Dwlink>
+                                        <DropdownMenu.Dwlink href={route('articles.create')}>
                                             New article
-                                        </DropdownMenu.Link>
+                                        </DropdownMenu.Dwlink>
                                             </> : null}
                                         <DropdownMenu.Divider/>
-                                        <DropdownMenu.Link
+                                        <DropdownMenu.Dwlink
                                             href={route('logout')}
                                             method="POST"
                                             as="button"
                                         >
                                             Logout
-                                        </DropdownMenu.Link>
+                                        </DropdownMenu.Dwlink>
                                     </DropdownMenu>
                                     </div>
                                     ):

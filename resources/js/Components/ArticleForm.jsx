@@ -10,7 +10,7 @@ import Editor from "@/Components/Editor.jsx";
 import {usePage} from "@inertiajs/react";
 
 export default function ArticleForm({data, setData}){
-    const {errors, tags, categories, statuses} = usePage().props;
+    const {errors, tags, categories, statuses, auth} = usePage().props;
     const onChange = (e) => setData(e.target.name, e.target.value);
     return(
         <>
@@ -63,6 +63,8 @@ export default function ArticleForm({data, setData}){
                     : null}
             </div>
 
+            {auth.user.isAdmin ? <>
+            </>:null}
             <div className="mb-6">
                     <Label>Status</Label>
                     <Select value={data.status} data={statuses} onChange={(e) => setData('status', e)}/>

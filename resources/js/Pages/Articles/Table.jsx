@@ -2,17 +2,17 @@ import React from "react";
 import App from "@/Layouts/App.jsx";
 import { Head } from "@inertiajs/react";
 import Container from "@/Components/Container.jsx";
-import {Link} from "@inertiajs/inertia-react";
+import { Link } from '@inertiajs/react';
 import Pagination from "@/Components/Pagination.jsx";
 import Table from "@/Components/Table.jsx";
 import useSwal from "@/Hooks/useSwal.jsx";
+import clsx from "clsx";
 
 export default function ArticleTable(props){
     const {data: articles, meta, links} = props.articles
 
     const {ask} = useSwal();
-
-
+console.log(articles);
     return(
         <div className="mt-14 md:mt-10 p-10">
             <Head title="My Article"/>
@@ -24,6 +24,7 @@ export default function ArticleTable(props){
                         <Table.Th>Title</Table.Th>
                         <Table.Th>Category</Table.Th>
                         <Table.Th>Tags</Table.Th>
+                        <Table.Th>Status</Table.Th>
                         <Table.Th></Table.Th>
                     </tr>
                     </Table.Thead>
@@ -41,11 +42,21 @@ export default function ArticleTable(props){
                                     </Table.Td>
                                     <Table.Td>
                                         {article.tags.map((tag, i) =>(
-                                            <span className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-800">
-                                                <Link href={tag.url} key={i}>{tag.name}</Link>
+                                            <span key={i} className="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-800">
+                                                <Link href={route('tags.show', tag.slug)} key={i}>{tag.name}</Link>
                                             </span>
 
                                         ))}
+                                    </Table.Td>
+                                    <Table.Td>
+                                            <span className={clsx(
+                                                article.status == 'Published' && 'bg-green-100 text-green-800  dark:bg-green-900 dark:text-green-300 hover:bg-green-200dark:hover:bg-green-800',
+                                                article.status == 'Unpublished' && 'bg-amber-100 text-amber-800  dark:bg-amber-900 dark:text-amber-300 hover:bg-green-200dark:hover:bg-green-800',
+                                                article.status == 'Preview' && 'bg-blue-100 text-blue-800  dark:bg-blue-900 dark:text-blue-300 hover:bg-green-200dark:hover:bg-green-800',
+                                                'text-xs font-medium me-2 px-2.5 py-0.5 rounded  '
+                                            )}>
+                                               {article.status}
+                                            </span>
                                     </Table.Td>
                                     <td>
                                         <Table.Dropdown>
