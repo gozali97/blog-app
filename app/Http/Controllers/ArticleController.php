@@ -9,6 +9,8 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
@@ -29,7 +31,7 @@ class ArticleController extends Controller
             ->limit(12)
             ->fastPaginate();
 
-        return inertia('Articles/Index', [
+        return Inertia::render('Articles/Index', [
             'articles' => ArticleItemResource::collection($article),
         ]);
     }
@@ -47,7 +49,7 @@ class ArticleController extends Controller
             ->fastPaginate(5);
 //    return ArticleTableResource::collection($articles);
 
-        return inertia('Articles/Table',[
+        return Inertia::render('Articles/Table',[
             'articles' => ArticleTableResource::collection($articles),
         ]);
     }
@@ -68,7 +70,7 @@ class ArticleController extends Controller
             'category' => fn($query) => $query->select('id','name', 'slug'),
         ]);
 
-        return inertia('Articles/Show',[
+        return Inertia::render('Articles/Show',[
             'article' => (new ArticleSingleResource($currentArticle))->additional([
                 'related' => $articles,
             ]),
@@ -77,7 +79,7 @@ class ArticleController extends Controller
 
     public function create(){
 
-        return inertia('Articles/Create',[
+        return Inertia::render('Articles/Create',[
                 'tags' => $this->tags,
                 'categories' => $this->categories,
         ]);
@@ -121,7 +123,7 @@ class ArticleController extends Controller
     }
 
     public function update(Request $request, Article $article){
-
+dd($request->all());
         $request->validate([
             'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
@@ -146,5 +148,16 @@ class ArticleController extends Controller
         $article->tags()->sync($request->tags, true);
 
         return to_route('articles.show', $article);
+    }
+
+    public function destroy(Article $article){
+         if($article->image){
+             Storage::delete($article->image);
+         }
+         $article->tags()->detach();
+         $article->delete();
+
+         return back();
+
     }
 }

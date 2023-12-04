@@ -6,6 +6,7 @@ use App\Http\Resources\ArticleItemResource;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -19,7 +20,7 @@ class CategoryController extends Controller
             ->latest()
             ->fastPaginate();
 
-         return inertia('Category/Show', [
+         return Inertia::render('Category/Show', [
              'category' => $category,
              'articles' => ArticleItemResource::collection($article),
          ]);

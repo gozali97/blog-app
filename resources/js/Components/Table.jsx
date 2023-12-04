@@ -80,18 +80,15 @@ const DropdownItem = ({ children, className = '', ...props }) => {
 const DropdownButton = ({ className, ...props }) => {
     return (
         <Menu.Item>
-            {({ active }) => (
-                <button
-                    {...props}
-                    className={`${
-                        active ? 'bg-gray-50 text-black' : 'bg-white text-black'
-                    } block w-full py-2 px-4 text-left text-sm font-medium text-black hover:bg-blue-50 hover:text-blue-600 ${
-                        className ? className : ''
-                    }`}
-                >
-                    {props.children}
-                </button>
-            )}
+            <button
+                {...props}
+                className={clsx(
+                    className,
+                    'bg-white text-black block w-full py-2 px-4 text-left text-sm font-medium text-black hover:bg-blue-50 hover:text-blue-600'
+                )}
+            >
+                {props.children}
+            </button>
         </Menu.Item>
     );
 };

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ArticleItemResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,7 @@ class DashboardController extends Controller
             ->latest()
             ->limit(12)
             ->get();
-        return inertia('Dashboard', [
+        return Inertia::render('Dashboard', [
             'articles' => ArticleItemResource::collection($article),
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ArticleItemResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,7 @@ class HomeController extends Controller
             ->limit(12)
             ->get();
 
-        return inertia('Home', [
+        return Inertia::render('Home', [
             'articles' => ArticleItemResource::collection($article),
         ]);
     }

@@ -3,9 +3,16 @@ import {Link, usePage} from '@inertiajs/react';
 import NavLink from '@/Components/NavLink';
 import DropdownMenu from '@/Components/DropdownMenu';
 import ResponsiveNavigation from '@/Layouts/ResponsiveNavigation';
+import {DarkModeSwitch} from "react-toggle-dark-mode";
 
 export default function Navigation() {
     const {auth, category_global} = usePage().props
+
+    const [isDarkMode, setDarkMode] = React.useState(false);
+
+    const toggleDarkMode = (checked) => {
+        setDarkMode(checked);
+    };
 
     return (
         <>
@@ -38,6 +45,13 @@ export default function Navigation() {
                                 ))}
                             </div>
                             <div className="flex items-center">
+                                <DarkModeSwitch
+                                    className="mr-3"
+                                    checked={isDarkMode}
+                                    onChange={toggleDarkMode}
+                                    size={20}
+                                />
+
                                 {auth.user ? (
                                     <div className="flex items-center">
                                     <DropdownMenu label={auth.user.name}>
@@ -46,7 +60,7 @@ export default function Navigation() {
                                         >
                                             Dashboard
                                         </DropdownMenu.Link>
-                                        <DropdownMenu.Link href={'#'}>
+                                        <DropdownMenu.Link href='/profile'>
                                             My profile
                                         </DropdownMenu.Link>
                                         <DropdownMenu.Link href={'#'}>

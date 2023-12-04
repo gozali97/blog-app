@@ -7,7 +7,7 @@ import MultipleSelect from "@/Components/MultipleSelect.jsx";
 import Input from "@/Components/Input.jsx";
 import Textarea from "@/Components/Textarea.jsx";
 import Editor from "@/Components/Editor.jsx";
-import {usePage} from "@inertiajs/inertia-react";
+import {usePage} from "@inertiajs/react";
 
 export default function ArticleForm({data, setData}){
     const {errors, tags, categories} = usePage().props;
