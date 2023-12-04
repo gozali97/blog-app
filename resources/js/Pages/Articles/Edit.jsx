@@ -1,10 +1,9 @@
 import React from "react";
 import App from "@/Layouts/App.jsx";
-import {Head, useForm} from "@inertiajs/react";
+import {Head, router, useForm} from "@inertiajs/react";
 import Container from "@/Components/Container.jsx";
 import Header from "@/Components/Header.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
-import {Inertia} from "@inertiajs/inertia";
 import ArticleForm from "@/Components/ArticleForm.jsx";
 
 export default function Edit({article, statuses}){
@@ -14,15 +13,15 @@ export default function Edit({article, statuses}){
         teaser: article.teaser,
         category_id: article.category,
         body: article.body,
-        picture: '',
+        image: '',
         tags: article.tags,
         status: statuses.find((i) => i.id == article.status),
     })
 
-    const onSubmit = (e) => {
+    function submit(e) {
         e.preventDefault();
 
-        Inertia.put(route('articles.update', article.slug), {
+        router.put(route('articles.update', article.slug), {
             ...data,
             _method: "PUT",
             category_id: data.category_id.id,
@@ -43,7 +42,7 @@ export default function Edit({article, statuses}){
                 </Header.Content>
             </Header>
             <Container>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={submit}>
                     <ArticleForm {...{data, setData}}/>
                     <PrimaryButton>Update</PrimaryButton>
                 </form>

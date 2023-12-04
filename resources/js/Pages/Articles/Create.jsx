@@ -1,10 +1,9 @@
 import React from "react";
 import App from "@/Layouts/App.jsx";
-import {Head, useForm} from "@inertiajs/react";
+import {Head, router, useForm} from "@inertiajs/react";
 import Container from "@/Components/Container.jsx";
 import Header from "@/Components/Header.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
-import {Inertia} from "@inertiajs/inertia";
 import ArticleForm from "@/Components/ArticleForm.jsx";
 
 export default function Create({statuses,tags}){
@@ -13,15 +12,14 @@ export default function Create({statuses,tags}){
         teaser: '',
         category_id: '',
         body: '',
-        picture: '',
+        image: '',
         tags: [tags[0], tags[1]],
         status:statuses[0]
     })
 
-    const onSubmit = (e) => {
+    function submit(e) {
         e.preventDefault();
-
-        Inertia.post(route('articles.store'), {
+        router.post(route('articles.store'), {
             ...data,
             category_id: data.category_id.id,
             status: data.status.id,
@@ -41,7 +39,7 @@ export default function Create({statuses,tags}){
                 </Header.Content>
             </Header>
             <Container>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={submit}>
                     <ArticleForm {...{data, setData}}/>
                     <PrimaryButton type='submit'>Submit</PrimaryButton>
                 </form>

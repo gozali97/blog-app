@@ -26,7 +26,7 @@ export default function ArticleBlock({article}) {
                         ) : null
                     }
                     <Link href={route('articles.show', article.slug)}>
-                        <h1 className="text-gray-800 font-semibold tracking-tight">
+                        <h1 className="text-gray-800 font-semibold tracking-tight line-clamp-1">
                             {article.title}
                         </h1>
                         <div className='!hidden md:!block '>

@@ -12,7 +12,6 @@ export default function ArticleTable(props){
     const {data: articles, meta, links} = props.articles
 
     const {ask} = useSwal();
-console.log(articles);
     return(
         <div className="mt-14 md:mt-10 p-10">
             <Head title="My Article"/>

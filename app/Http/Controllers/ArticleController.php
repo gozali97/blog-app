@@ -12,7 +12,6 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use mysql_xdevapi\Collection;
 
 class ArticleController extends Controller
 {
@@ -97,7 +96,7 @@ class ArticleController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
+            'image' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
             'teaser' => ['required', 'string', 'min:3'],
             'body' => ['required', 'string', 'min:3'],
@@ -106,7 +105,7 @@ class ArticleController extends Controller
             'tags' => ['required', 'array'],
         ]);
 
-        $picture = $request->file('picture');
+        $image = $request->file('image');
 
         $article =   $request->user()->articles()->create([
                         'title' => $title = $request->title,
@@ -115,7 +114,7 @@ class ArticleController extends Controller
                         'category_id' => $request->category_id,
                         'status' => $request->status,
                         'body' => $request->body,
-                        'image' => $request->hasFile('picture') ? $picture->storeAs('images/articles', $slug .'.'.$picture->extension()) : null,
+                        'image' => $request->hasFile('image') ? $image->storeAs('public/images/articles', $slug .'.'.$image->extension()) : null,
                     ]);
         $article->tags()->attach($request->tags);
 
@@ -136,9 +135,10 @@ class ArticleController extends Controller
     }
 
     public function update(Request $request, Article $article){
+        return $request->all();
 
         $request->validate([
-            'picture' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
+            'image' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
             'teaser' => ['required', 'string', 'min:3'],
             'body' => ['required', 'string', 'min:3'],
@@ -147,8 +147,8 @@ class ArticleController extends Controller
             'tags' => ['required', 'array'],
         ]);
 
-        if ($request->hasFile('picture')) {
-            $picture = $request->file('picture');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
         }
 
 
@@ -158,7 +158,7 @@ class ArticleController extends Controller
             'category_id' => $request->category_id,
             'body' => $request->body,
             'status' => $request->status,
-            'image' => $request->hasFile('picture') ? $picture->storeAs('images/articles', $article->slug .'.'.$picture->extension()) : $article->image,
+            'image' => $request->hasFile('image') ? $image->storeAs('images/articles', $article->slug .'.'.$image->extension()) : $article->image,
         ]);
         $article->tags()->sync($request->tags, true);
 

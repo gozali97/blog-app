@@ -5,8 +5,7 @@ import Header from "@/Components/Header.jsx";
 import Grid from "@/Components/Grid.jsx";
 import ArticleBlock from "@/Components/ArticleBlock.jsx";
 import Container from "@/Components/Container.jsx";
-import Footer from "@/Components/Footer.jsx";
-import {Link} from "@inertiajs/inertia-react";
+import {Link} from "@inertiajs/react";
 
 export default function Home({articles}){
     return(
