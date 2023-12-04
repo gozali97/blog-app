@@ -10,7 +10,7 @@ import Editor from "@/Components/Editor.jsx";
 import {usePage} from "@inertiajs/react";
 
 export default function ArticleForm({data, setData}){
-    const {errors, tags, categories} = usePage().props;
+    const {errors, tags, categories, statuses} = usePage().props;
     const onChange = (e) => setData(e.target.name, e.target.value);
     return(
         <>
@@ -61,6 +61,14 @@ export default function ArticleForm({data, setData}){
                 {errors.body ?
                     <Error value={errors.body}/>
                     : null}
+            </div>
+
+            <div className="mb-6">
+                    <Label>Status</Label>
+                    <Select value={data.status} data={statuses} onChange={(e) => setData('status', e)}/>
+                    {errors.status ?
+                        <Error value={errors.status}/>
+                        : null}
             </div>
         </>
     )

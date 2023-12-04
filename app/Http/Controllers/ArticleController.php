@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ArticleStatus;
 use App\Http\Resources\ArticleItemResource;
 use App\Http\Resources\ArticleSingleResource;
 use App\Http\Resources\ArticleTableResource;
@@ -11,16 +12,23 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use mysql_xdevapi\Collection;
 
 class ArticleController extends Controller
 {
 
     public $tags;
     public $categories;
+    public $statuses;
     public function __construct(){
+        $this->middleware('hasRole')->only('table', 'create');
         $this->middleware('auth')->except('show', 'index');
         $this->tags = Tag::select('id','name')->get();
         $this->categories = Category::select('id','name')->get();
+        $this->statuses = collect(ArticleStatus::cases())->map(fn ($status) => [
+            'id' => $status->value,
+            'name' => str($status->label())->ucfirst(),
+        ]);
     }
 
     public function index(){
@@ -82,6 +90,7 @@ class ArticleController extends Controller
         return Inertia::render('Articles/Create',[
                 'tags' => $this->tags,
                 'categories' => $this->categories,
+                'statuses' => $this->statuses
         ]);
     }
 
@@ -119,6 +128,7 @@ class ArticleController extends Controller
             ]),
             'tags' => $this->tags,
             'categories' => $this->categories,
+            'statuses' => $this->statuses
         ]);
     }
 

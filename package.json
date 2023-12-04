@@ -26,6 +26,7 @@
         "@inertiajs/inertia-react": "^0.8.1",
         "clsx": "^2.0.0",
         "highlight.js": "^11.9.0",
+        "isomorphic-dompurify": "^1.11.0",
         "marked": "^9.1.5",
         "postcss-import": "^15.1.0",
         "react-hot-toast": "^2.4.1",

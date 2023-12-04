@@ -6,8 +6,8 @@ export default function NavLink({ active = false, children, ...props }) {
     return (
         <Link
             className={clsx(
-                active && 'font-semibold text-white',
-                'inline-block rounded px-4 py-2 text-gray-400'
+                active && 'font-bold underline',
+                'inline-block rounded px-4 py-2 text-gray-900 dark:text-white'
             )}
             {...props}
         >

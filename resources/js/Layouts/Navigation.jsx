@@ -10,19 +10,27 @@ export default function Navigation() {
 
     const [isDarkMode, setDarkMode] = React.useState(false);
 
-    const toggleDarkMode = (checked) => {
-        setDarkMode(checked);
+    const toggleDarkMode = () => {
+        setDarkMode(!isDarkMode);
     };
+
+    React.useEffect(() => {
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    }, [isDarkMode]);
 
     return (
         <>
             <ResponsiveNavigation />
-            <nav className="hidden fixed z-50 w-screen border-b border-dashed border-gray-700 bg-gray-800 py-4 shadow lg:block">
+            <nav className="hidden fixed z-50 w-screen border-b bg-white border:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 py-4 shadow lg:block">
                 <div className="mx-auto max-w-screen-2xl px-4">
                     <div className="flex items-center justify-between">
                         <Link
                             href={route('home')}
-                            className="mr-3 text-lg font-semibold capitalize text-white"
+                            className="mr-3 text-lg font-semibold capitalize text-gray-900 dark:text-white"
                         >
                             {import.meta.env.VITE_APP_NAME}
                         </Link>
@@ -67,12 +75,14 @@ export default function Navigation() {
                                             Settings
                                         </DropdownMenu.Link>
                                         <DropdownMenu.Divider/>
+                                        {auth.hasRole ? <>
                                         <DropdownMenu.Link href={route('article.table')}>
                                             My articles
                                         </DropdownMenu.Link>
                                         <DropdownMenu.Link href={route('articles.create')}>
                                             New article
                                         </DropdownMenu.Link>
+                                            </> : null}
                                         <DropdownMenu.Divider/>
                                         <DropdownMenu.Link
                                             href={route('logout')}

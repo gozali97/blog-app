@@ -3,6 +3,9 @@ import hljs from 'highlight.js';
 import { Tab } from '@headlessui/react';
 import { marked } from 'marked';
 import clsx from 'clsx';
+import DOMPurify from 'isomorphic-dompurify';
+
+
 marked.setOptions({
     highlight: (code) => hljs.highlightAuto(code).value,
 });
@@ -51,7 +54,7 @@ export default function Editor({ value,...props }) {
                 <Tab.Panel>
                     <div
                         className="prose max-w-none p-4 prose-blue prose-img:rounded-lg"
-                        dangerouslySetInnerHTML={{ __html: marked(value) }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(value) }}
                     />
                 </Tab.Panel>
             </Tab.Panels>

@@ -7,7 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import {Inertia} from "@inertiajs/inertia";
 import ArticleForm from "@/Components/ArticleForm.jsx";
 
-export default function Create({tags}){
+export default function Create({statuses,tags}){
     const {data, setData} = useForm({
         title: '',
         teaser: '',
@@ -15,6 +15,7 @@ export default function Create({tags}){
         body: '',
         picture: '',
         tags: [tags[0], tags[1]],
+        status:statuses[0]
     })
 
     const onSubmit = (e) => {

@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'hasRole' => $request->user()?->hasRole()
             ],
             'category_global' => cache()->rememberForever('category_global', fn () => $categoryGlobal),
             'ziggy' => fn () => [
