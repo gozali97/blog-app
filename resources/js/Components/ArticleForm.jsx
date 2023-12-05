@@ -16,7 +16,7 @@ export default function ArticleForm({data, setData}){
         <>
             <div className="mb-6">
                 <Label value='Picture' />
-                <InputFile name='image' id='image' onChange={(e) => setData('image', e.target.files[1])}/>
+                <InputFile name='image' id='image' value={data.image} onChange={(e) => setData('image', e.target.files[0])}/>
                 {errors.image ?
                     <Error value={errors.image}/>
                     : null}

@@ -47,6 +47,12 @@ class HandleInertiaRequests extends Middleware
                 ] : null
 
             ],
+            'session' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+                'warning' => fn () => $request->session()->get('warning'),
+                'info' => fn () => $request->session()->get('info')
+            ],
             'category_global' => cache()->rememberForever('category_global', fn () => $categoryGlobal),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

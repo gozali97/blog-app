@@ -1,6 +1,6 @@
-import { Inertia } from '@inertiajs/inertia';
-import toast from 'react-hot-toast';
+import {toast} from 'react-toastify';
 import swal from 'sweetalert';
+import {router} from "@inertiajs/react";
 
 export default function useSwal() {
     const ask = ({
@@ -10,15 +10,18 @@ export default function useSwal() {
                      data = []
                  }) => {
         swal({
-            // icon: 'warning',
+            icon: 'warning',
             text: message,
-            buttons: ['Nope', 'Yap'],
+            buttons: ['No', 'Yes'],
         }).then((value) => {
             if (value == true) {
-                Inertia[method](url, data, {
+                router[method](url, data, {
                     preserveScroll: true,
-                    onSuccess: () => toast.success('Done.'),
-                });
+                },
+                {
+                    onSuccess: () => toast.success("Article deleted successfully!")
+                },
+            );
             }
         });
     };

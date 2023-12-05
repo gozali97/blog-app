@@ -95,6 +95,7 @@ class ArticleController extends Controller
     }
 
     public function store(Request $request){
+
         $request->validate([
             'image' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
@@ -114,11 +115,11 @@ class ArticleController extends Controller
                         'category_id' => $request->category_id,
                         'status' => $request->status,
                         'body' => $request->body,
-                        'image' => $request->hasFile('image') ? $image->storeAs('public/images/articles', $slug .'.'.$image->extension()) : null,
+                        'image' => $request->hasFile('image') ? $image->storeAs('images/articles', $slug .'.'.$image->extension()) : null,
                     ]);
         $article->tags()->attach($request->tags);
 
-      return to_route('articles.show', $article);
+      return to_route('articles.show', $article)->with('success', 'Berhasil menambahkan article');
     }
 
     public function edit(Article $article){
@@ -135,8 +136,7 @@ class ArticleController extends Controller
     }
 
     public function update(Request $request, Article $article){
-        return $request->all();
-
+//dd($request->all());
         $request->validate([
             'image' => ['nullable', 'mimes:png,jpg,jpeg', 'image'],
             'title' => ['required', 'string', 'min:3'],
@@ -162,7 +162,7 @@ class ArticleController extends Controller
         ]);
         $article->tags()->sync($request->tags, true);
 
-        return to_route('articles.show', $article);
+        return redirect()->route('articles.show', $article)->with('success', 'Article edited successfully.');
     }
 
     public function destroy(Article $article){

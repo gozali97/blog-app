@@ -5,6 +5,7 @@ import Container from "@/Components/Container.jsx";
 import Header from "@/Components/Header.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import ArticleForm from "@/Components/ArticleForm.jsx";
+import {toast} from 'react-toastify';
 
 export default function Create({statuses,tags}){
     const {data, setData} = useForm({
@@ -24,8 +25,16 @@ export default function Create({statuses,tags}){
             category_id: data.category_id.id,
             status: data.status.id,
             tags: data.tags.map(t => t.id),
+        }, {
+            onSuccess:() =>{
+                toast.success("Article created successfully!");
 
+            },
+            onError:()=>{
+                toast.error("Article created failed!");
+            }
         })
+
     }
     return(
         <div className="mt-14 md:mt-10">

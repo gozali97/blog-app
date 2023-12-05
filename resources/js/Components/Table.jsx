@@ -95,7 +95,7 @@ const DropdownButton = ({ className, ...props }) => {
 
 const Dropdown = ({ className, children }) => {
     return (
-        <div className="relative">
+        <div className="absolute">
             <Menu>
                 <Menu.Button>
                     <svg
