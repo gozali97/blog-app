@@ -28,16 +28,18 @@ export default function Navigation() {
             <ResponsiveNavigation />
             <nav className="hidden fixed z-50 w-screen border-b bg-white border:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 py-4 shadow lg:block">
                 <div className="mx-auto max-w-screen-2xl px-4">
-                    <div className="flex items-center justify-between">
-                        <Link
-                            href={route('home')}
-                            className="mr-3 text-lg font-semibold capitalize text-gray-900 dark:text-white"
-                        >
-                            {import.meta.env.VITE_APP_NAME}
-                        </Link>
+                    <div className="flex w-full items-center">
+                        <div className="flex w-1/4">
+                            <Link
+                                href={route('home')}
+                                className="mr-3 text-lg font-semibold capitalize text-gray-900 dark:text-white"
+                            >
+                                {import.meta.env.VITE_APP_NAME}
+                            </Link>
+                        </div>
 
-                        <div className="flex flex-1 items-center justify-between">
-                            <div>
+                        <div className="flex w-2/4 justify-center">
+                            <div className="-mt-2">
                                 <NavLink
                                     href={route('home')}
                                     active={route().current('home')}
@@ -59,7 +61,8 @@ export default function Navigation() {
                                     </NavLink>
                                 ))}
                             </div>
-                            <div className="flex items-center mr-6">
+                        </div>
+                        <div className="flex w-1/4 items-center justify-end">
                                 <DarkModeSwitch
                                     className={clsx(
                                         isDarkMode && 'text-white',
@@ -116,7 +119,6 @@ export default function Navigation() {
                                     )
                                 }
                             </div>
-                        </div>
                     </div>
                 </div>
             </nav>

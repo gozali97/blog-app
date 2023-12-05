@@ -32,7 +32,7 @@ class ArticleController extends Controller
 
     public function index(){
         $article = Article::query()
-            ->select('id','title', 'slug','user_id', 'teaser', 'created_at')
+            ->select('id','title', 'image', 'slug','user_id', 'teaser', 'created_at')
             ->with(['tags' => fn ($tag) => $tag->select('name', 'slug')])
             ->wherePublished()
             ->latest()
@@ -125,7 +125,7 @@ class ArticleController extends Controller
                         'category_id' => $request->category_id,
                         'status' => $request->status,
                         'body' => $request->body,
-                        'image' => $request->hasFile('image') ? $image->storeAs('images/articles', $slug .'.'.$image->extension()) : null,
+                        'image' => $request->hasFile('image') ? $image->storeAs('public/images/articles', $slug .'.'.$image->extension()) : null,
                     ]);
         $article->tags()->attach($request->tags);
 
@@ -168,7 +168,7 @@ class ArticleController extends Controller
             'category_id' => $request->category_id,
             'body' => $request->body,
             'status' => $request->status,
-            'image' => $request->hasFile('image') ? $image->storeAs('images/articles', $article->slug .'.'.$image->extension()) : $article->image,
+            'image' => $request->hasFile('image') ? $image->storeAs('public/images/articles', $article->slug .'.'.$image->extension()) : $article->image,
         ]);
         $article->tags()->sync($request->tags, true);
 

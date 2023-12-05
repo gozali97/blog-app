@@ -20,7 +20,7 @@ export default function Index({category, ...props}){
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </Header.Content>
             </Header>
-            <Container>
+            <Container data-aos="fade-up">
                 {articles.length ?
                     <>
                         <Grid>

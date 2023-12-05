@@ -6,11 +6,14 @@ function Header({ className = '', children }) {
         <div
             className={clsx(
                 className,
-                '-mt-8 mb-8 grid grid-cols-12 bg-white dark:bg-gray-800 py-5 lg:py-32'
+                '-mt-10 lg:-mt-4 mb-8 grid grid-cols-1 lg:grid-cols-2 bg-gray-400 dark:bg-gray-800 p-5 lg:px-32 lg:py-10'
             )}
         >
-            <div className="col-span-10 col-start-2">
-                <div className="max-w-4xl">{children}</div>
+                <div className="flex flex-col my-auto">
+                    {children}
+                </div>
+            <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+                <img className="object-cover object-center rounded" alt="hero" src="https://images.unsplash.com/photo-1701542183610-60708f7db8f7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import Footer from "@/Components/Footer.jsx";
 import {ToastContainer} from "react-toastify";
 import Toast from "@/Components/Toast.jsx";
 import Contact from "@/Components/Contact.jsx";
+import Feature from "@/Components/Feature.jsx";
 
 export default function App({children}){
     return(
@@ -11,6 +12,7 @@ export default function App({children}){
             <Toast/>
             <Navigation/>
             <div className="py-8 dark:bg-gray-800">{children}</div>
+            <Feature/>
             <Contact/>
             <Footer/>
         </div>

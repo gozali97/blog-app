@@ -8,6 +8,7 @@ import useSwal from "@/Hooks/useSwal.jsx";
 import clsx from "clsx";
 import Header from "@/Components/Header.jsx";
 import {pickBy} from "lodash";
+import ButtonLink from "@/Components/ButtonLink.jsx";
 
 export default function ArticleTable(props){
     const {data: articles, meta, links} = props.articles
@@ -62,7 +63,7 @@ export default function ArticleTable(props){
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </Header.Content>
             </Header>
-            <Container>
+            <Container data-aos="fade-up">
                 <div className="p-4 rounded-lg shadow-lg border border-gray-100">
                 <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                     <div className="flex gap-2">
@@ -74,7 +75,7 @@ export default function ArticleTable(props){
                             </select>
                         </div>
                         <div className="mt-2">
-                        <Link href={route('articles.create')} className="py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded">Add Article</Link>
+                        <ButtonLink href={route('articles.create')}> Add </ButtonLink>
                         </div>
                     </div>
                       <div>

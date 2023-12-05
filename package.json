@@ -32,7 +32,9 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-react": "^0.8.1",
+        "@material-tailwind/react": "^2.1.5",
         "@tabler/icons-react": "^2.42.0",
+        "aos": "^3.0.0-beta.6",
         "clsx": "^2.0.0",
         "flowbite": "^2.2.0",
         "flowbite-react": "^0.7.0",

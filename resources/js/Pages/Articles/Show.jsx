@@ -30,7 +30,7 @@ export default function Show(props){
                     {article.teaser}
                 </Header.Subtitle>
             </Header>
-            <Container>
+            <Container data-aos="fade-up">
                 <div className="grid grid-cols-12 gap-16">
                     <div className="col-span-8">
                         {<img className='w-full rounded mb-6' src={article.image} alt=""/>}
