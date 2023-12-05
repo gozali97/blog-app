@@ -1,10 +1,9 @@
 import React from "react";
 import App from "@/Layouts/App.jsx";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import Header from "@/Components/Header.jsx";
 import Container from "@/Components/Container.jsx";
 import Markdown from "@/Components/Markdown.jsx";
-import {Link} from "@inertiajs/inertia-react";
 
 export default function Show(props){
     const {data:article, related:articles} = props.article;
@@ -13,13 +12,13 @@ export default function Show(props){
             <Head title={article.title}/>
             <Header>
                 <div className="mb-4">
-                    <div className='text-gray-400 mb-4 text-sm'>
-                        Fill in: <Link className='text-white underline' href={route('category.show', article.category.slug)}>{article.category.name}</Link>
+                    <div className='text-gray-900 dark:text-gray-400 mb-4 text-sm '>
+                        Fill in: <Link className='text-gray-800 dark:text-white underline' href={route('category.show', article.category.slug)}>{article.category.name}</Link>
                     </div>
                     {article.tags.length ?
                         <div className='flex items-center gap-x-2 mb-1'>
                             {article.tags.map(tag => (
-                                <Link className='bg-gray-700 text-white px-2 py-1 text-xs font-medium hover:bg-gray-600 transition duration-200 rounded shadow border-t border-gray-600' key={tag.slug} href={route('tags.show', tag.slug)}>{tag.name}</Link>
+                                <Link className='bg-gray-700 dark:bg-white dark:text-gray-800 text-white px-2 py-1 text-xs font-medium hover:bg-gray-600 transition duration-200 rounded shadow border-t border-gray-600' key={tag.slug} href={route('tags.show', tag.slug)}>{tag.name}</Link>
                             ))}
                         </div>
                         : null}

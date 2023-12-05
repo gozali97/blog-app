@@ -10,8 +10,8 @@ function DropdownMenu({ toggleAnimate = true, label, children }) {
                 <>
                     <Menu.Button
                         className={clsx(
-                            'flex items-center gap-x-2 text-gray-400',
-                            open && 'text-white'
+                            'flex items-center gap-x-2 font-semibold text-gray-900 dark:text-gray-100',
+                            open && 'text-gray-900 dark:text-white'
                         )}
                     >
                         {label}
@@ -42,7 +42,7 @@ function DropdownMenu({ toggleAnimate = true, label, children }) {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute right-0 top-9 w-60 space-y-1 overflow-hidden rounded-lg border border-gray-700 bg-gray-800 px-4 py-5 shadow-sm">
+                        <Menu.Items className="absolute right-0 top-9 w-60 bg-white space-y-1 overflow-hidden rounded-lg border border-gray-100 dark:border-gray-700 dark:bg-gray-800 px-4 py-5 shadow-sm">
                             {children}
                         </Menu.Items>
                     </Transition>
@@ -59,7 +59,7 @@ function Dwlink({ isActive = false, children, ...props }) {
                 <Link className="block w-full text-left" {...props}>
                     <div
                         className={clsx(
-                            (active || isActive) ? 'bg-blue-700 text-white w-full' : 'text-gray-400',
+                            (active || isActive) ? 'bg-blue-500 text-white w-full' : 'text-gray-800 dark:text-gray-100',
                             'inline-block rounded-lg px-2 py-1 text-left text-sm font-medium'
                         )}
                     >

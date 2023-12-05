@@ -52,9 +52,19 @@ class ArticleController extends Controller
                 'tags'=> fn($query) => $query->select('name', 'slug', 'id'),
                 'category'=> fn($query) => $query->select('name', 'slug', 'id')
             ])
-            ->whereBelongsTo($request->user(), 'author')
+            ->where('user_id', $request->user()->id)
+            ->where('user_id', $request->user()->id)
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('slug', 'like', '%' . $search . '%')
+                        ->orWhere('body', 'like', '%' . $search . '%')
+                        ->orWhere('teaser', 'like', '%' . $search . '%');
+                });
+            })
             ->latest()
-            ->fastPaginate(5);
+            ->fastPaginate($request->perpage ?? 10)
+            ->withQueryString();
 //    return ArticleTableResource::collection($articles);
 
         return Inertia::render('Articles/Table',[

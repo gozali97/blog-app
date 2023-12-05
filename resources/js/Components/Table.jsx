@@ -7,7 +7,7 @@ const Table = ({ children, className = '' }) => {
         <div className={clsx(className, 'flex flex-col')}>
             <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
-                    <table className="min-w-full divide-y divide-gray-200">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                         {children}
                     </table>
                 </div>
@@ -24,7 +24,7 @@ const Thead = ({ className, children }) => {
 
 const Tbody = ({ children }) => {
     return (
-        <tbody className="divide-y divide-gray-200 bg-white">
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-600 bg-white dark:bg-gray-700">
         {children}
         </tbody>
     );
@@ -34,7 +34,7 @@ const Td = ({ className = '', children, ...props }) => {
     return (
         <td
             {...props}
-            className={clsx(className, 'whitespace-nowrap px-6 py-4')}
+            className={clsx(className, 'whitespace-nowrap px-6 py-4 dark:bg-gray-700 dark:text-white')}
         >
             {children}
         </td>
@@ -47,7 +47,7 @@ const Th = ({ className, children }) => {
             scope="col"
             className={clsx(
                 className,
-                'whitespace-nowrap px-6 py-3 text-left text-sm font-semibold text-black'
+                'whitespace-nowrap px-6 py-3 text-left text-sm font-semibold text-black dark:bg-gray-700 dark:text-gray-100'
             )}
         >
             {children}

@@ -4,6 +4,7 @@ import NavLink from '@/Components/NavLink';
 import DropdownMenu from '@/Components/DropdownMenu';
 import ResponsiveNavigation from '@/Layouts/ResponsiveNavigation';
 import {DarkModeSwitch} from "react-toggle-dark-mode";
+import clsx from 'clsx';
 
 export default function Navigation() {
     const {auth, category_global} = usePage().props
@@ -58,9 +59,12 @@ export default function Navigation() {
                                     </NavLink>
                                 ))}
                             </div>
-                            <div className="flex items-center">
+                            <div className="flex items-center mr-6">
                                 <DarkModeSwitch
-                                    className="mr-3"
+                                    className={clsx(
+                                        isDarkMode && 'text-white',
+                                        !isDarkMode && 'text-black',
+                                        'mr-4')}
                                     checked={isDarkMode}
                                     onChange={toggleDarkMode}
                                     size={20}

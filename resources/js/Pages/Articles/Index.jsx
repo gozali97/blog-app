@@ -31,7 +31,9 @@ export default function Index({category, ...props}){
                         <Pagination {...{meta, links}}/>
                     </>
                     :
-                    <p>No Articles yet .</p>
+                    <div className="flex w-full justify-center py-20">
+                        <span className="px-2 py-1 rounded text-white bg-gray-800 dark:text-gray-900 dark:bg-gray-100">No Articles yet .</span>
+                    </div>
                 }
             </Container>
         </div>

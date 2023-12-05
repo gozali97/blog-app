@@ -1,6 +1,6 @@
 import React from "react";
 import App from "@/Layouts/App.jsx";
-import {Head, router, useForm} from "@inertiajs/react";
+import {Head, Link, router, useForm} from "@inertiajs/react";
 import Container from "@/Components/Container.jsx";
 import Header from "@/Components/Header.jsx";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
@@ -52,7 +52,10 @@ export default function Edit({article, statuses}){
             <Container>
                 <form onSubmit={submit}>
                     <ArticleForm {...{data, setData}}/>
+                    <div className="flex gap-4">
+                        <Link href={route('article.table')} className="py-1.5 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded">Back</Link>
                     <PrimaryButton>Update</PrimaryButton>
+                    </div>
                 </form>
             </Container>
         </div>
